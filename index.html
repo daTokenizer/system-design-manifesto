@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The System Design Manifesto</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="shortcut icon" type="image/png" href="favicon.png">
+
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1 id="the-system-design-manifesto">The System Design Manifesto</h1> a sane path toward systems that stay small, change safely, and can be understood by one person
+<ol>
+<li>
+<h3 id="form-follows-function"><strong>Form Follows Function</strong> - the design is derived from the requirements, never the requirements from the design</h3>
+  <ol>
+    <li><p><strong>Requirements first.</strong> Bend the design to the requirements, not the requirements to a design you already like.</p></li>
+    <li><p><strong>The minimal change</strong> that meets them, with the least tech-debt accrued - change as little as possible while keeping future options broad.</p></li>
+    <li><p><strong>Future-proofing is a mechanism, not a wish</strong> - it is a decision already in this design that lets an anticipated change land later without rearchitecting. If you cannot point to that mechanism, it is not future-proofing; state it as a limitation and move on.</p></li>
+  </ol>
+</li>
+<li>
+<h3 id="one-normal-engineer">A design is reviewable by <strong>one normal engineer</strong></h3>
+  <ol>
+    <li><p>If it takes a genius, or deep knowledge of the implementation, to follow your architecture, it is either <em>too complex</em> or <em>too deep in the weeds</em>. Neither is architecture.</p></li>
+    <li><p><strong>Present it one level up</strong> - the scope of the change and its effect on its neighbours (callers, downstream, sibling components), not a guided tour of the internals.</p></li>
+    <li><p>Architecture is bound to change as understanding evolves. <strong>Capture the change and review it like you review code</strong> - the bigger the change, the more thorough the review.</p></li>
+  </ol>
+</li>
+<li>
+<h3 id="new-is-the-enemy"><strong>New is the Enemy</strong></h3>
+  <ol>
+    <li><p>New tools, services, and datastores are expensive - building is only ~25% of total cost of ownership<sup class="footnote-ref"><a href="#fn1" id="fnref1">1</a></sup>; the rest is the years of operation nobody budgets for.</p></li>
+    <li><p><strong>Reuse</strong> existing components, standards, and the <a href="https://www.oreilly.com/library/view/domain-driven-design-tackling/0321125215/">ubiquitous language</a> before inventing. <strong>Don't roll your own</strong><sup class="footnote-ref"><a href="#fn2" id="fnref2">2</a></sup> - a tool for what you need very likely already exists.</p></li>
+    <li><p>When something genuinely new <em>is</em> required, <strong>build it reusably</strong>, so the next person does not reinvent it next quarter.</p></li>
+  </ol>
+</li>
+<li>
+<h3 id="less-logic-fewer-bugs"><strong>Less Logic, Fewer Bugs</strong></h3>
+  <ol>
+    <li><p>Code is hostile to your goals; <strong>deletion beats addition</strong>. Adding logic introduces new bugs; removing logic at most exposes existing ones, and reverts cleanly.</p></li>
+    <li><p><strong>Single responsibility, fewest side-effects.</strong> Components talk through a well-defined, documented, versioned schema or API - agreed and tested by both sides.</p></li>
+    <li><p>A datastore sits <strong>behind</strong> that API so it can be replaced with no disruption. Field names and output stay stable regardless of the system that transports them.</p></li>
+  </ol>
+</li>
+<li>
+<h3 id="control-at-the-edge"><strong>Control at the Edge</strong></h3>
+  <ol>
+    <li><p>Put user-facing control <strong>as close to the user as possible</strong> - at the surface they already touch, not baked into the infrastructure.</p></li>
+    <li><p>A lever buried in infra is one the user cannot reach and you cannot move without a migration.</p></li>
+    <li><p>The cause a user acts on should live <em>where the user is</em>.</p></li>
+  </ol>
+</li>
+<li>
+<h3 id="fail-correctly"><strong>Fail Correctly</strong></h3>
+  <ol>
+    <li><p>Every component <em>will</em> fail - that is fine. A <strong>cascading</strong> failure is not.</p></li>
+    <li><p>Leave the kill switches, the max/min thresholds, and the noted margins of error, so a component fails in a known, predictable way and the rest of the system survives.</p></li>
+    <li><p><strong>Validate and type every input at the boundary</strong>, and alert on the invalid - input validation is the last line of defence against upstream bugs. You cannot fail because someone upstream did.</p></li>
+  </ol>
+</li>
+<li>
+<h3 id="actionable-by-design"><strong>Actionable by Design</strong></h3>
+  <ol>
+    <li><p>Every view, output, or metric ties an <strong>observed effect</strong> back to a <strong>cause the user can act on</strong>. A number with no lever is half a feature.</p></li>
+    <li><p><strong>Define health metrics and smells</strong> - a counter that should only rise, a rate that should never exceed its budget, a queue that should never grow unbounded.</p></li>
+    <li><p>The user has the final say on value: an issue with no effect on the user might as well not exist; a behaviour the user perceives as wrong <em>is</em> wrong, even if implemented perfectly.</p></li>
+  </ol>
+</li>
+<li>
+<h3 id="present-alternatives"><strong>Present Alternatives</strong></h3>
+  <ol>
+    <li><p>When more than one real option exists, present them with their pros and cons and <strong>name the flaws with pride</strong> - it is the only way to make an informed decision, and to grow as engineers.</p></li>
+    <li><p>Don't smuggle a single solution past review; "there was only one way" is rarely true.</p></li>
+    <li><p>When no option is clearly better, let the person who will <em>build</em> it choose - it secures ownership of the result.</p></li>
+  </ol>
+</li>
+</ol>
+<hr class="footnotes-sep">
+  <section class="footnotes">
+    <ol class="footnotes-list">
+      <li id="fn1" class="footnote-item"><p>The Iceberg Fallacy: the cost of developing a new piece of software is only ~25% of the total cost of ownership that management sees and budgets for. The rest is operation, maintenance, integration, and the bugs you have not met yet. <a href="#fnref1" class="footnote-backref">↩︎</a></p></li>
+      <li id="fn2" class="footnote-item"><p>Greenspun's Tenth Rule, generalized: any sufficiently complicated custom-built system contains an ad-hoc, informally-specified, bug-ridden, slow implementation of half of the industry standard it refused to adopt. The same is true of custom authentication, custom serialization, custom schedulers, and custom config languages. <a href="#fnref2" class="footnote-backref">↩︎</a></p></li>
+    </ol>
+    <br>
+    <br>
+    <small>
+      <p>A sibling to <a href="https://data.adamlev.com">The Data Modeling Manifesto</a>, and the doctrine behind the <a href="https://github.com/daTokenizer/boldspot">boldspot</a> design-review mode.</p>
+      <p>Based on the opinions of this document's sole author: <a href="https://www.adamlev.com">Adam Lev-Libfeld</a> (2026). Learn more about me at
+          <a href="https://github.com/daTokenizer"><i class="fa fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/adamlev/"><i class="fa fa-linkedin"></i></a>
+          <a href="https://arxiv.org/search/cs?searchtype=author&query=Lev-Libfeld%2C+A"><i class="fa fa-file"></i></a>
+          <a href="https://www.amazon.com/Performance-Scale-Troubleshooting-Field-Manual-ebook/dp/B07TMNVZDP/ref=sr_1_1?keywords=adam+lev&sr=8-1"><i class="fa fa-book"></i></a>
+      </p>
+    </small>
+  </section>
+</div>
+</body>
+
+</html>
