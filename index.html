@@ -39,10 +39,19 @@
   </ol>
 </li>
 <li>
+<h3 id="do-one-thing-well"><strong>Do One Thing, Well</strong></h3>
+  <ol>
+    <li><p><strong>One component, one job.</strong> Every component does one thing and does it well (=a single responsibility, the fewest side-effects you can manage)<sup class="footnote-ref"><a href="#fn3" id="fnref3">3</a></sup>. This is the driving logic behind everything you design, from a single function to a whole service.</p></li>
+    <li><p><strong>Extend before you build</strong> (see <em>New is the Enemy</em>), but only while the component stays one thing. The test is the word <em>and</em>: the moment you need it to say what a component does (=it senses temperature <em>and</em> schedules jobs), it has become two components. Split it, don't grow it.</p></li>
+    <li><p><strong>All outputs are inputs.</strong> Design every output to be consumed by another program later (documented, parsable, uncluttered), even one that does not exist yet. Small pieces compose; monoliths do not.</p></li>
+    <li><p><strong>All outputs are inputs.</strong> Design every output to be consumed by another program later - documented, parsable, uncluttered. The component you feed may not exist yet.</p></li>
+  </ol>
+</li>
+<li>
 <h3 id="less-logic-fewer-bugs"><strong>Less Logic, Fewer Bugs</strong></h3>
   <ol>
     <li><p>Code is hostile to your goals; <strong>deletion beats addition</strong>. Adding logic introduces new bugs; removing logic at most exposes existing ones, and reverts cleanly.</p></li>
-    <li><p><strong>Single responsibility, fewest side-effects.</strong> Components talk through a well-defined, documented, versioned schema or API - agreed and tested by both sides.</p></li>
+    <li><p>Components talk through a <strong>well-defined, documented, versioned schema or API</strong> - agreed and tested by both sides.</p></li>
     <li><p>A datastore sits <strong>behind</strong> that API so it can be replaced with no disruption. Field names and output stay stable regardless of the system that transports them.</p></li>
   </ol>
 </li>
@@ -84,6 +93,7 @@
     <ol class="footnotes-list">
       <li id="fn1" class="footnote-item"><p>The Iceberg Fallacy: the cost of developing a new piece of software is only ~25% of the total cost of ownership that management sees and budgets for. The rest is operation, maintenance, integration, and the bugs you have not met yet. <a href="#fnref1" class="footnote-backref">↩︎</a></p></li>
       <li id="fn2" class="footnote-item"><p>Greenspun's Tenth Rule, generalized: any sufficiently complicated custom-built system contains an ad-hoc, informally-specified, bug-ridden, slow implementation of half of the industry standard it refused to adopt. The same is true of custom authentication, custom serialization, custom schedulers, and custom config languages. <a href="#fnref2" class="footnote-backref">↩︎</a></p></li>
+      <li id="fn3" class="footnote-item"><p>The Unix philosophy, as Doug McIlroy set it down in 1978: "Make each program do one thing well. To do a new job, build afresh rather than complicate old programs by adding new features. Expect the output of every program to become the input to another, as yet unknown, program." It predates the microservice by decades and still decides the boundary. <a href="#fnref3" class="footnote-backref">↩︎</a></p></li>
     </ol>
     <br>
     <br>
