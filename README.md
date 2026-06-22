@@ -16,6 +16,6 @@ Eight principles for the practice of architecture — from a single function sig
 8. **Actionable by Design** — every view ties an effect back to a cause the user can act on.
 9. **Present Alternatives** — show the real options with their flaws; never smuggle a single solution past review.
 
-A sibling to [The Data Modeling Manifesto](https://data.adamlev.com), and the doctrine behind the [boldspot](https://github.com/daTokenizer/boldspot) design-review mode.
+A sibling to [The Data Modeling Manifesto](https://data.adamlev.com), and the doctrine behind the [baldspot](https://github.com/daTokenizer/baldspot) design-review mode.
 
 The page is static HTML + CSS, no build step. By [Adam Lev-Libfeld](https://www.adamlev.com). Licensed GPL-3.0.
