@@ -41,8 +41,8 @@
 <li>
 <h3 id="do-one-thing-well"><strong>Do One Thing, Well</strong></h3>
   <ol>
-    <li><p><strong>One component, one job.</strong> Every component does one thing and does it well (=a single responsibility, the fewest side-effects you can manage)<sup class="footnote-ref"><a href="#fn3" id="fnref3">3</a></sup>. This is the driving logic behind everything you design, from a single function to a whole service.</p></li>
-    <li><p><strong>Extend before you build</strong> (see <em>New is the Enemy</em>), but only while the component stays one thing. The test is the word <em>and</em>: the moment you need it to say what a component does (=it senses temperature <em>and</em> schedules jobs), it has become two components. Split it, don't grow it.</p></li>
+    <li><p><strong>One component, one job.</strong> Every component does one thing and does it well: a single responsibility, the fewest side-effects you can manage<sup class="footnote-ref"><a href="#fn3" id="fnref3">3</a></sup>. This is the driving logic behind everything you design, from a single function to a whole service.</p></li>
+    <li><p><strong>Extend before you build</strong> (see <em>New is the Enemy</em>), but only while the component stays one thing. The test is the word <em>and</em>: the moment you need it to say what a component does, it has become two. A component that senses temperature <em>and</em> schedules jobs is two components, not one. Split it, don't grow it.</p></li>
     <li><p><strong>All outputs are inputs.</strong> Design every output to be consumed by another program later (documented, parsable, uncluttered), even one that does not exist yet. Small pieces compose; monoliths do not.</p></li>
     <li><p><strong>All outputs are inputs.</strong> Design every output to be consumed by another program later - documented, parsable, uncluttered. The component you feed may not exist yet.</p></li>
   </ol>
